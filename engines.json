@@ -1,0 +1,38 @@
+{
+    "leveldb": {
+        "module": "air5-level",
+        "name": "LevelDB"
+    },
+    "rocksdb": {
+        "module": "air5-rocks",
+        "name": "RocksDB"
+    },
+    "sqlite3": {
+        "module": "air5-sqlite",
+        "name": "SQLite"
+    },
+    "carbondb": {
+        "module": "air5-carbon",
+        "name": "CarbonDB"
+    },
+    "pouchdb": {
+        "module": "air5-pouch",
+        "name": "PouchDB"
+    },
+    "airdb": {
+        "module": "air5-air",
+        "name": "AirDB"
+    },
+    "lowdb": {
+        "module": "air5-low",
+        "name": "LowDB"
+    },
+    "nedb": {
+        "module": "air5-nedb",
+        "name": "NeDB"
+    },
+    "memory": {
+        "module": "air5-memory",
+        "name": "Memory"
+    }
+}

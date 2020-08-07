@@ -1,0 +1,27 @@
+{
+	"name": "air5",
+	"version": "6.0.9",
+	"description": "Database Manager With Support For Multiple Providers",
+	"main": "./main.js",
+	"keywords": [
+		"SQLite",
+		"LevelDB",
+		"PouchDB",
+		"AirDB",
+		"Better-Sqlite3",
+		"LowDB",
+		"RocksDB",
+		"Database",
+		"key",
+		"value",
+		"Provider"
+	],
+	"author": "SliceWire",
+	"license": "Apache-2.0",
+	"dependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JairusSW/Air5",
+		"bugs": "https://github.com/JairusSW/Air5/issues"
+	}
+}
