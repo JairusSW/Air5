@@ -48,12 +48,12 @@ class Air5 {
 					const engine = engines[name.toString().toLowerCase()]
 	
 					if (isNil(engine)) throw new Error('Provider Is Not Valid Or Is Not Installed.')
-	
-					return require(engine['module'])
+
+					return require(`${engine['module']}`)
 			
 				} catch (err) {
 			
-					return
+					return undefined
 			
 				}
 	
@@ -61,11 +61,9 @@ class Air5 {
 	
 			const provider = getProvider(options.provider)
 	
-			if (isNil(provider)) {
-	
-				throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
-	
-			}
+			console.log(provider)
+
+			if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 	
 			if (!existsSync(options.path)) mkdirSync(options.path)
 	
@@ -81,13 +79,15 @@ class Air5 {
 
 	async ensure(key, value) {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
         if (isNil(key) === true) throw new Error('No Key Provided')
 
         if (isNil(value) === true) throw new Error('No Value Provided')
 
         try {
 
-            if (!await this.provider.has(key, value)) {
+            if (!await this.provider.has(key)) {
 
                 await this.provider.set(key, value)
 
@@ -105,6 +105,8 @@ class Air5 {
 	}
 	
 	async set(key, value) {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
@@ -127,8 +129,9 @@ class Air5 {
 		
 	async clear() {
 
-		try {
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
+		try {
 
 			await this.provider.clear()
 
@@ -145,6 +148,8 @@ class Air5 {
 	}
 
 	async delete(key) {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
@@ -167,6 +172,8 @@ class Air5 {
 	}
 
 	async get(key, value) {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
@@ -194,6 +201,8 @@ class Air5 {
 
 	async keys() {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
         try {
 
 			const object = await this.provider.toJSON()
@@ -209,6 +218,8 @@ class Air5 {
 	}
 
 	async values() {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
         try {
 
@@ -226,6 +237,8 @@ class Air5 {
 
 	async has(key, value) {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
         try {
@@ -236,7 +249,7 @@ class Air5 {
 
 			} else {
 
-				const value = await this.provider.has(key)
+				const value = await this.provider.get(key)
 
 				if (isNil(value)) return false
 
@@ -254,9 +267,11 @@ class Air5 {
 
 	async entries() {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
         try {
 
-            return await this.toArray()
+			return await this.toArray()
 
         } catch (err) {
 
@@ -265,15 +280,17 @@ class Air5 {
         }
 	}
 
-	async forEach(options = (value, key)) {
+	async forEach(response) {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
         try {
 
 			const array = await this.toArray()
 
-			array.forEach(i => {
+			array.forEach(([key, value]) => {
 
-				options(i[1], i[0])
+				response(value, key)
 
 			})
 
@@ -288,9 +305,11 @@ class Air5 {
 
 	async data() {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
         try {
 
-			return await this.provider.data()
+			return await this.provider.toJSON()
 
 		} catch (err) {
 
@@ -301,6 +320,8 @@ class Air5 {
 	}
 
 	async toJSON() {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
 
         try {
 
@@ -316,9 +337,27 @@ class Air5 {
 
 	async toArray() {
 
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+
         try {
 
 			return await this.provider.toArray()
+
+		} catch (err) {
+
+			throw new Error(err)
+
+		}
+
+	}
+	
+	async toMap() {
+
+		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
+		
+        try {
+
+			return new Map(await this.toArray())
 
 		} catch (err) {
 

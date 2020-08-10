@@ -90,6 +90,9 @@ database.entries()
 database.size
 // Return The Size Of The Database As A Number
 
+database.forEach((value, key) => {})
+// Return The Value(s) And Key(s) Of The Database
+
 database.data()
 // Convert And Return The Database As An Object/JSON
  
