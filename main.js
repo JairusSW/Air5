@@ -354,7 +354,7 @@ class Air5 {
 	async toMap() {
 
 		if (isNil(provider)) throw new Error(`Unknown Provider: ${options.provider}. Did You Install The Correct Provider?`)
-		
+
         try {
 
 			return new Map(await this.toArray())
