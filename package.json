@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.1.5",
+	"version": "6.1.6",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"browser": "./browser.js",
@@ -25,7 +25,5 @@
 		"url": "https://github.com/JairusSW/Air5",
 		"bugs": "https://github.com/JairusSW/Air5/issues"
 	},
-	"dependencies": {
-		"enmap": "^5.6.1"
-	}
+	"dependencies": {}
 }
