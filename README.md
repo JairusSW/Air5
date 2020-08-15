@@ -95,6 +95,6 @@ database.toArray()
 
 ### Creating Providers
 
-🔗 [Creating Providers](https://slicewire.gitbook.io/air5/creating-providers) 🔗
+### 🔗 [Creating Providers](https://slicewire.gitbook.io/air5/creating-providers) 🔗
 
 **Copyright 2020 Jairus Tanaka - Apache 2.0**
