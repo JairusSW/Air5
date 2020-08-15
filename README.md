@@ -2,7 +2,7 @@
 
 ![npm](https://img.shields.io/npm/dt/air5?style=flat-square) ![npm](https://img.shields.io/npm/v/air5?style=flat-square) ![NPM](https://img.shields.io/npm/l/air5?style=flat-square)
 
-![Logo](https://i.ibb.co/SmdD6sX/Logo.png)
+![Logo](https://i.ibb.co/b77Lytz/rsz-1rsz-logo.png)
 
 **Air5 Is An Asynchronous And Flexible Database Manager That Supports Multiple Providers.**
 
@@ -10,42 +10,27 @@
 
 ### Providers
 
-- Sqlite3
+- Sqlite
 - LevelDB
 - RocksDB
-- CarbonDB
 - PouchDB
 - NeDB
 - LowDB
 - AirDB
+- Enmap
 - Memory
+- YAML
+- CSV
+- TSON
+- BSON
+- JSON
+- FLAT
+
+For A Full List Of Providers See: [https://slicewire.gitbook.io/air5/providers](https://slicewire.gitbook.io/air5/providers)
 
 ### Installation
 
-```bash
-npm i air5 --save
-```
-Install An Engine (Required)
-
-```bash
-npm i air5-sqlite --save
-
-npm i air5-level --save
-
-npm i air5-rocks --save
-
-npm i air5-carbon --save
-
-npm i air5-pouch --save
-
-npm i air5-nedb --save
-
-npm i air5-low --save
-
-npm i air5-air --save
-
-npm i air5-memory --save
-```
+### 🔗 [Installation](https://slicewire.gitbook.io/air5/installation) 🔗
 
 ### Usage
 
@@ -104,43 +89,12 @@ database.toArray()
  
 ```
 
-### Speeds
-```
-SQLite3 
+### Documetation
 
-    01,741 ops/s, ±10.43% | 01.74 MB/s
+### 🔗 [Documentation](https://slicewire.gitbook.io/air5/installation) 🔗
 
-LevelDB
+### Creating Providers
 
-    58,688 ops/s, ±18.43% | 58.68 MB/s
+🔗 [Creating Providers](https://slicewire.gitbook.io/air5/creating-providers) 🔗
 
-RocksDB
-
-    58,750 ops/s, ±17.31% | 58.75 MB/s
-
-CarbonDB 
-
-    01,768 ops/s, ±10.43% | 01.77 MB/s
-
-PouchDB
-
-    58,470 ops/s, ±19.24% | 58.47 MB/s
-
-NeDB
-
-    52,172 ops/s, ±18.19% | 52.17 MB/s
-
-LowDB
-
-    68,055 ops/s, ±13.34% | 68.05 MB/s
-
-AirDB
-
-    67,792 ops/s, ±13.04% | 67.79 MB/s
-
-MemoryDB
-
-    15,358 ops/s, ±2.14%  | 15.35 MB/s
-
-```
 **Copyright 2020 Jairus Tanaka - Apache 2.0**
