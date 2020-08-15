@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.2.8",
+	"version": "6.2.9",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -32,7 +32,5 @@
 		"bugs": "https://github.com/JairusSW/Air5/issues"
 	},
 	"homepage": "https://slicewire.gitbook.io/air5/",
-	"dependencies": {
-		"air5-json": "^6.0.5"
-	}
+	"dependencies": {}
 }
