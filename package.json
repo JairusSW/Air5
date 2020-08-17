@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.3.6",
+	"version": "6.3.7",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
