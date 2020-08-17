@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.3.5",
+	"version": "6.3.6",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -34,7 +34,7 @@
 	},
 	"homepage": "https://slicewire.gitbook.io/air5/",
 	"peerDependencies": {
-		"air5-air": "^6.0.6",
+		"air5-air": "^6.0.7",
 		"air5-bson": "^6.0.4",
 		"air5-csv": "^6.0.4",
 		"air5-enmap": "^6.0.3",
