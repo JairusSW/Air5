@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.3.3",
+	"version": "6.3.4",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -19,6 +19,7 @@
 		"BSON",
 		"JSON5",
 		"FLAT",
+		"memory",
 		"Database",
 		"key",
 		"value",
@@ -32,7 +33,7 @@
 		"bugs": "https://github.com/JairusSW/Air5/issues"
 	},
 	"homepage": "https://slicewire.gitbook.io/air5/",
-	"dependencies": {
+	"optionalDependencies": {
 		"air5-air": "^6.0.6",
 		"air5-bson": "^6.0.4",
 		"air5-csv": "^6.0.4",
@@ -46,6 +47,7 @@
 		"air5-nedb": "^6.0.5",
 		"air5-pouch": "^6.1.1",
 		"air5-rocks": "^6.0.4",
+		"air5-sqlite": "^6.0.4",
 		"air5-tson": "^6.0.3",
 		"air5-yaml": "^6.0.3"
 	}
