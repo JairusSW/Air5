@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.3.9",
+	"version": "6.4.0",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -36,6 +36,7 @@
 	"peerDependencies": {
 		"air5-air": "^6.0.7",
 		"air5-bson": "^6.0.4",
+		"air5-cson": "^6.0.2",
 		"air5-csv": "^6.0.4",
 		"air5-enmap": "^6.0.3",
 		"air5-flat": "^6.0.3",
@@ -56,6 +57,9 @@
 			"optional": true
 		},
 		"air5-bson": {
+			"optional": true
+		},
+		"air5-cson": {
 			"optional": true
 		},
 		"air5-csv": {
@@ -100,5 +104,8 @@
 		"air5-yaml": {
 			"optional": true
 		}
+	},
+	"devDependencies": {
+		"air5-cson": "^6.0.2"
 	}
 }
