@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.4.3",
+	"version": "6.4.4",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -45,6 +45,7 @@
 		"air5-level": "^6.0.6",
 		"air5-low": "^6.0.5",
 		"air5-memory": "^6.0.5",
+		"air5-mongo": "^6.0.0",
 		"air5-nedb": "^6.0.5",
 		"air5-pouch": "^6.1.1",
 		"air5-rocks": "^6.0.4",
@@ -86,6 +87,9 @@
 		"air5-memory": {
 			"optional": true
 		},
+		"air5-mongo": {
+			"optional": true
+		},
 		"air5-nedb": {
 			"optional": true
 		},
@@ -104,8 +108,5 @@
 		"air5-yaml": {
 			"optional": true
 		}
-	},
-	"devDependencies": {
-		"air5-cson": "^6.0.2"
 	}
 }
