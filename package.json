@@ -1,9 +1,10 @@
 {
 	"name": "air5",
-	"version": "6.4.6",
+	"version": "6.4.7",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
+		"Mongo",
 		"SQLite",
 		"LevelDB",
 		"PouchDB",
