@@ -69,7 +69,20 @@ const engines = {
 	flat: {
 		module: 'air5-flat',
 		name: 'FLAT'
+	},
+	cson: {
+		module: 'air5-cson',
+		name: 'CSON'
+	},
+	mongo: {
+		module: 'air5-mongo',
+		name: 'Mongo'
+	},
+	redis: {
+		module: 'air5-redis',
+		name: 'Redis'
 	}
+	
 }
 
 const isNil = (value) => {
@@ -82,7 +95,8 @@ class Air5 {
 
 	constructor(name, options = {
 		provider: undefined,
-		path: undefined
+		path: undefined,
+		uri: undefined
 	}) {
 
 		(async () => {
@@ -95,43 +109,45 @@ class Air5 {
 
 			if (!existsSync(options.path)) mkdirSync(options.path)
 
-			const getProvider = (name) => {
+			const getProvider = (engine) => {
 
 				const names = Object.keys(engines)
 
-				if (!names.includes(name.toString().toLowerCase())) throw new Error('Provider Is Not Valid Or Is Not Installed.')
+				if (!names.includes(engine.toString().toLowerCase())) throw new Error('Provider Is Not Valid Or Is Not Installed.')
 
-				const Provider = engines[name.toString().toLowerCase()]
+				const Provider = engines[engine.toString().toLowerCase()]
 
 				return Provider
 
 			}
 
-			const PProvider = getProvider(options.provider)
+			const Provider = getProvider(options.provider)
 
-			const provider = require(`${PProvider['module']}`)
+			const provider = require(Provider['module'])
 
-			//if (isNil(Provider)) throw new Error('Unknown Provider. Did You Install The Correct One?')
-
-			const path = `${options.path}/${name}-${PProvider['name']}/`.replace('\\', '/').replace('//', '/')
+			const path = `${options.path}/${name}-${Provider['name']}/`.replace('\\', '/').replace('//', '/')
 
 			if (!existsSync(options.path)) mkdirSync(options.path)
 
-			if (!existsSync(path)) mkdirSync(path)
-
-			this.provider = new provider(name, path)
-
-			const array = await this.toArray()
-
-			this.size = array.length - 1
-
-			this.size = this.size
+			this.provider = new provider(name, path, options.uri)
 
 			return
 
 		})()
 
 	}
+
+/**
+ * 
+ * @description Set A Key/Value If It Is Missing
+ * ```js 
+ * await air.ensure('key', 'value')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
 
 	async ensure(key, value) {
 
@@ -158,6 +174,17 @@ class Air5 {
         }
 	}
 	
+/**
+ * 
+ * @description Set A Key/Value Inside Of The Database
+ * ```js 
+ * await air.set(key, value)
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
 	async set(key, value) {
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
@@ -168,7 +195,7 @@ class Air5 {
 
 			await this.provider.set(key, value)
 
-			this.size++
+			return
 
 		} catch (err) {
 
@@ -177,6 +204,18 @@ class Air5 {
 		}
         
 	}
+
+/**
+ * 
+ * @description Get A Key/Value From The Database
+ * ```js 
+ * await air.get('key', 'value')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns { key: value }
+ * @author JairusSW
+ */
 
 	async get(key, value) {		
 
@@ -203,6 +242,18 @@ class Air5 {
 		}
 
 	}
+
+/**
+ * 
+ * @description Check If Key/Value Exist
+ * ```js 
+ * await air.has('key', 'value')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns true/false
+ * @author JairusSW
+ */
 
 	async has(key, value) {
 
@@ -232,19 +283,29 @@ class Air5 {
 
 	}
 
+/**
+ * 
+ * @description Delete A Key And It's Value From The Database
+ * ```js 
+ * await air.delete('key')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
+
 	async delete(key) {
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
         try {
 
-			if (await this.has(key) === false) return undefined
+			if (await this.has(key) === false) return
 			
 			await this.provider.delete(key)
 
-			this.size--
-
-			return true
+			return
 
 		} catch (err) {
 
@@ -254,13 +315,23 @@ class Air5 {
 		
 	}
 
+/**
+ * 
+ * @description Clear The Whole Database
+ * ```js 
+ * await air.clear()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
+
 	async clear() {
 
 		try {
 
 			await this.provider.clear()
-
-			this.size = 0
 
 			return
 
@@ -271,6 +342,18 @@ class Air5 {
 		}
         
 	}
+
+/**
+ * 
+ * @description Return All The Keys In The Database As An Array
+ * ```js 
+ * await air.keys()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns []
+ * @author JairusSW
+ */
 
 	async keys() {
 
@@ -288,6 +371,18 @@ class Air5 {
 
 	}
 
+/**
+ * 
+ * @description Return All The Values In The Database As An Array
+ * ```js 
+ * await air.values()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns []
+ * @author JairusSW
+ */
+
 	async values() {
 
         try {
@@ -304,6 +399,19 @@ class Air5 {
 
 	}
 
+/**
+ * 
+ * @description Return All The Data In The Database A Iterable Array
+ * ```js 
+ * await air.entries()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns []
+ * @author JairusSW
+ */
+
+
 	async entries() {
 
         try {
@@ -316,6 +424,18 @@ class Air5 {
 
         }
 	}
+
+/**
+ * 
+ * @description Return All The Keys And Values One At A Time
+ * ```js 
+ * await air.forEach((key, value) => {})
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
 
 	async forEach(callback) {		
 
@@ -338,6 +458,140 @@ class Air5 {
         }
 	}
 
+/**
+ * 
+ * @description Return A Random Key/Value From The Database
+ * ```js 
+ * await air.random()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns {}
+ * @author JairusSW
+ */
+
+	async random() {
+
+        try {
+
+			const array = await this.toArray()
+
+			const length = array.length
+
+			const random = array[Math.floor(Math.random() * length)]
+
+			const json = {}
+
+			json[random[0]] = random[1]
+
+			return json
+
+		} catch (err) {
+
+			throw new Error(err)
+
+		}
+ 
+	}
+
+/**
+ * 
+ * @description Find A Key Or Value In The Database
+ * ```js 
+ * await air.find((value, key) => value === 'value')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns {}
+ * @author JairusSW
+ */
+
+	async find(callback, argument) {
+
+		try {
+
+			if (typeof argument !== 'undefined') callback = callback.bind(argument);
+
+			const array = await this.toArray()
+
+			for (const [key, value] of array) {
+				
+				if (callback(value, key)) {
+
+					const json = {}
+
+					json[key] = value
+
+					return json
+
+				}
+					
+			}
+				
+			return undefined
+
+		} catch (err) {
+
+			throw new Error(err)
+
+		}
+ 
+	}
+
+/**
+ * 
+ * @description Filter Key(s) Or Value(s) From The Database
+ * ```js 
+ * await air.filter((value, key) => value === 'value')
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns {}
+ * @author JairusSW
+ */
+
+	async filter(callback, argument) {
+		
+        try {
+
+			const results = {}
+
+			if (typeof argument !== 'undefined') callback = callback.bind(argument);
+
+			const array = await this.toArray()
+
+			for (const [key, value] of array) {
+				
+				if (callback(value, key)) {
+
+					results[key] = value
+
+				}
+					
+			}
+				
+			return results
+
+		} catch (err) {
+
+			throw new Error(err)
+
+		}
+ 
+	}
+
+/**
+ * 
+ * @description Return The Database As JSON
+ * ```js 
+ * await air.data()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns {}
+ * @author JairusSW
+ */
+
 	async data() {
 
         try {
@@ -349,8 +603,20 @@ class Air5 {
 			throw new Error(err)
 
 		}
-
+ 
 	}
+
+/**
+ * 
+ * @description Return The Database As JSON
+ * ```js 
+ * await air.toJSON()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns {}
+ * @author JairusSW
+ */
 
 	async toJSON() {
 
@@ -366,6 +632,18 @@ class Air5 {
 
 	}
 
+/**
+ * 
+ * @description Return The Database As An Array
+ * ```js 
+ * await air.toArray()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns []
+ * @author JairusSW
+ */
+
 	async toArray() {
 
         try {
@@ -379,7 +657,19 @@ class Air5 {
 		}
 
 	}
-	
+
+/**
+ * 
+ * @description Return The Database As A Map
+ * ```js 
+ * await air.toMap()
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns [Object Map]
+ * @author JairusSW
+ */
+
 	async toMap() {
 
         try {
@@ -392,11 +682,41 @@ class Air5 {
 
 		}
 
+	}
+
+/**
+ * 
+ * @description Insert Data From A Map Into Datbase
+ * ```js 
+ * await air.fromMap(map)
+ * ```
+ * @license Apache-2.0
+ * @public true
+ * @returns undefined
+ * @author JairusSW
+ */
+
+	async fromMap(map) {
+
+        try {
+
+			for (const [key, value] of map) {
+
+				await this.set(key, value)
+
+			}
+
+			return
+
+		} catch (err) {
+
+			throw new Error(err)
+
+		}
+
     }
 
 }
-
-process.on('unhandledRejection', (err) => console.log('Unhandled Rejection Error: \n', err, '\n'))
 
 module.exports = Air5
 
