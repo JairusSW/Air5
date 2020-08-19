@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.5.3",
+	"version": "6.5.4",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -49,6 +49,7 @@
 		"air5-mongo": "^6.0.0",
 		"air5-nedb": "^6.0.5",
 		"air5-pouch": "^6.1.1",
+		"air5-redis": "^6.0.0",
 		"air5-rocks": "^6.0.4",
 		"air5-sqlite": "^6.0.4",
 		"air5-tson": "^6.0.3",
@@ -100,6 +101,9 @@
 		"air5-pouch": {
 			"optional": true
 		},
+		"air5-redis": {
+			"optional": true
+		},
 		"air5-rocks": {
 			"optional": true
 		},
@@ -109,5 +113,8 @@
 		"air5-yaml": {
 			"optional": true
 		}
+	},
+	"devDependencies": {
+		"air5-redis": "^6.0.0"
 	}
 }

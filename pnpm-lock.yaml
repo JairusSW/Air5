@@ -1,0 +1,107 @@
+devDependencies:
+  air5-redis: 6.0.0
+lockfileVersion: 5.1
+packages:
+  /air5-redis/6.0.0:
+    dependencies:
+      ioredis: 4.17.3
+      node-avail: 9.4.5
+      redis-url: 1.2.1
+    dev: true
+    resolution:
+      integrity: sha512-KyyCFyVJDBcqOZ+tC45hkhC8vJKAq6C637yjCoW67M+KHWPcW0/Klx2evy194ovChQH7CjhnNBaRjQOYY2r4+Q==
+  /cluster-key-slot/1.1.0:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-2Nii8p3RwAPiFwsnZvukotvow2rIHM+yQ6ZcBXGHdniadkYGZYiGmkHJIbZPIV9nfv7m/U1IPMVVcAhoWFeklw==
+  /debug/4.1.1:
+    dependencies:
+      ms: 2.1.2
+    dev: true
+    resolution:
+      integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  /denque/1.4.1:
+    dev: true
+    engines:
+      node: '>=0.10'
+    resolution:
+      integrity: sha512-OfzPuSZKGcgr96rf1oODnfjqBFmr1DVoc/TrItj3Ohe0Ah1C5WX5Baquw/9U9KovnQ88EqmJbD66rKYUQYN1tQ==
+  /ioredis/4.17.3:
+    dependencies:
+      cluster-key-slot: 1.1.0
+      debug: 4.1.1
+      denque: 1.4.1
+      lodash.defaults: 4.2.0
+      lodash.flatten: 4.4.0
+      redis-commands: 1.5.0
+      redis-errors: 1.2.0
+      redis-parser: 3.0.0
+      standard-as-callback: 2.0.1
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-iRvq4BOYzNFkDnSyhx7cmJNOi1x/HWYe+A4VXHBu4qpwJaGT1Mp+D2bVGJntH9K/Z/GeOM/Nprb8gB3bmitz1Q==
+  /lodash.defaults/4.2.0:
+    dev: true
+    resolution:
+      integrity: sha1-0JF4cW/+pN3p5ft7N/bwgCJ0WAw=
+  /lodash.flatten/4.4.0:
+    dev: true
+    resolution:
+      integrity: sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
+  /ms/2.1.2:
+    dev: true
+    resolution:
+      integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
+  /node-avail/9.4.5:
+    dev: true
+    resolution:
+      integrity: sha512-oLO5Fjy1Jl8FZduJWuMDcgXpHTzbt1Fjsk09M4SYkQOmdsXiVHpOtHLHpbbqUOqhEDpDiW0zkxWmfFOWCtx1EA==
+  /redis-commands/1.5.0:
+    dev: true
+    resolution:
+      integrity: sha512-6KxamqpZ468MeQC3bkWmCB1fp56XL64D4Kf0zJSwDZbVLLm7KFkoIcHrgRvQ+sk8dnhySs7+yBg94yIkAK7aJg==
+  /redis-commands/1.6.0:
+    dev: true
+    resolution:
+      integrity: sha512-2jnZ0IkjZxvguITjFTrGiLyzQZcTvaw8DAaCXxZq/dsHXz7KfMQ3OUJy7Tz9vnRtZRVz6VRCPDvruvU8Ts44wQ==
+  /redis-errors/1.2.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=
+  /redis-parser/3.0.0:
+    dependencies:
+      redis-errors: 1.2.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=
+  /redis-url/1.2.1:
+    dependencies:
+      redis: 3.0.2
+    dev: true
+    resolution:
+      integrity: sha1-GGcAlaOOmJ03k1ndTG5Kv/heLrE=
+  /redis/3.0.2:
+    dependencies:
+      denque: 1.4.1
+      redis-commands: 1.6.0
+      redis-errors: 1.2.0
+      redis-parser: 3.0.0
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-PNhLCrjU6vKVuMOyFu7oSP296mwBkcE6lrAjruBYG5LgdSqtRBoVQIylrMyVZD/lkF24RSNNatzvYag6HRBHjQ==
+  /standard-as-callback/2.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-NQOxSeB8gOI5WjSaxjBgog2QFw55FV8TkS6Y07BiB3VJ8xNTvUYm0wl0s8ObgQ5NhdpnNfigMIKjgPESzgr4tg==
+specifiers:
+  air5-redis: ^6.0.0
