@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.5.7",
+	"version": "6.5.8",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -24,7 +24,8 @@
 		"Database",
 		"key",
 		"value",
-		"Provider"
+		"Provider",
+		"Plugin"
 	],
 	"author": "SliceWire",
 	"license": "Apache-2.0",
@@ -41,7 +42,6 @@
 		"air5-csv": "^6.0.4",
 		"air5-enmap": "^6.0.3",
 		"air5-flat": "^6.0.3",
-		"air5-json": "^6.0.5",
 		"air5-json5": "^6.0.3",
 		"air5-level": "^6.0.6",
 		"air5-low": "^6.0.5",
