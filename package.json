@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.6.1",
+	"version": "6.6.2",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -113,5 +113,9 @@
 		"air5-yaml": {
 			"optional": true
 		}
+	},
+	"dependencies": {
+		"air5-json": "^6.0.5",
+		"air5-json5": "^6.0.4"
 	}
 }
