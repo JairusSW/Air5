@@ -1,89 +1,8 @@
 const { mkdirSync, existsSync } = require('fs')
 
-const engines = {
+const engines = require('./providers.json')
 
-	leveldb: {
-		module: 'air5-level',
-		name: 'LevelDB'
-	},
-	rocksdb: {
-		module: 'air5-rocks',
-		name: 'RocksDB'
-	},
-	sqlite: {
-		module: 'air5-sqlite',
-		name: 'SQLite'
-	},
-	carbondb: {
-		module: 'air5-carbon',
-		name: 'CarbonDB'
-	},
-	pouchdb: {
-		module: 'air5-pouch',
-		name: 'PouchDB'
-	},
-	airdb: {
-		module: 'air5-air',
-		name: 'AirDB'
-	},
-	lowdb: {
-		module: 'air5-low',
-		name: 'LowDB'
-	},
-	nedb: {
-		module: 'air5-nedb',
-		name: 'NeDB'
-	},
-	memory: {
-		module: 'air5-memory',
-		name: 'Memory'
-	},
-	enmap: {
-		module: 'air5-enmap',
-		name: 'Enmap'
-	},
-	csv: {
-		module: 'air5-csv',
-		name: 'CSV'
-	},
-	yaml: {
-		module: 'air5-yaml',
-		name: 'YAML'
-	},
-	bson: {
-		module: 'air5-bson',
-		name: 'BSON'
-	},
-	tson: {
-		module: 'air5-tson',
-		name: 'TSON'
-	},
-	json: {
-		module: 'air5-json',
-		name: 'JSON'
-	},
-	json5: {
-		module: 'air5-json5',
-		name: 'JSON5'
-	},
-	flat: {
-		module: 'air5-flat',
-		name: 'FLAT'
-	},
-	cson: {
-		module: 'air5-cson',
-		name: 'CSON'
-	},
-	mongo: {
-		module: 'air5-mongo',
-		name: 'Mongo'
-	},
-	redis: {
-		module: 'air5-redis',
-		name: 'Redis'
-	}
-	
-}
+const _ = require('lodash')
 
 const isNil = (value) => {
 
@@ -178,20 +97,32 @@ class Air5 {
  * 
  * @description Set A Key/Value Inside Of The Database
  * ```js 
- * await air.set(key, value)
+ * await air.set(key, value, path)
  * ```
  * @license Apache-2.0
  * @public true
  * @returns undefined
  * @author JairusSW
  */
-	async set(key, value) {
+	async set(key, value, path) {
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
 		if (isNil(value) === true) throw new Error('No Value Provided')
 		
 		try {
+
+			if (path) {
+
+				let data = await this.get(key)
+
+				_.set(data, path, value)
+				
+				await this.provider.set(key, data)
+
+				return
+
+			}
 
 			await this.provider.set(key, value)
 
@@ -217,13 +148,13 @@ class Air5 {
  * @author JairusSW
  */
 
-	async get(key, value) {		
+	async get(key, path) {		
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
         try {
 
-			if (isNil(value)) {
+			if (isNil(path)) {
 
 				return await this.provider.get(key)
 
@@ -231,7 +162,7 @@ class Air5 {
 
 				const value = await this.provider.get(key)
 
-				return value[value]
+				return _.get(value, path)
 				
 			}
 
@@ -245,7 +176,7 @@ class Air5 {
 
 /**
  * 
- * @description Check If Key/Value Exist
+ * @description Check If Key/Value Exists
  * ```js 
  * await air.has('key', 'value')
  * ```
@@ -255,19 +186,19 @@ class Air5 {
  * @author JairusSW
  */
 
-	async has(key, value) {
+	async has(key, path) {
 
 		if (isNil(key) === true) throw new Error('No Key Provided')
 
         try {
 
-			if (isNil(value)) {
+			if (isNil(path)) {
 
 				return await this.provider.has(key)
 
 			} else {
 
-				const value = await this.provider.get(key)
+				const value = await this.get(key, path)
 
 				if (isNil(value)) return false
 
@@ -359,6 +290,8 @@ class Air5 {
 
         try {
 
+			if (this.provider.keys) return await this.provider.keys()
+
 			const object = await this.provider.toJSON()
 
 			return Object.keys(object)
@@ -387,6 +320,8 @@ class Air5 {
 
         try {
 
+			if (this.provider.values) return await this.provider.values()
+
 			const object = await this.provider.toJSON()
 
 			return Object.values(object)
@@ -411,10 +346,11 @@ class Air5 {
  * @author JairusSW
  */
 
-
 	async entries() {
 
         try {
+
+			if (this.provider.entries) return await this.provider.entries()
 
 			return await this.toArray()
 			
@@ -440,6 +376,18 @@ class Air5 {
 	async forEach(callback) {		
 
         try {
+
+			if (this.provider.forEach) {
+				
+				await this.provider.forEach((value, key) => {
+
+					callback(value, key)
+
+				})
+
+				return
+
+			}
 
 			const array = await this.toArray()
 
@@ -473,6 +421,8 @@ class Air5 {
 	async random() {
 
         try {
+
+			if (this.provider.random) return await this.provider.random()
 
 			const array = await this.toArray()
 
@@ -554,6 +504,8 @@ class Air5 {
 		
         try {
 
+			if (this.provider.filter) return await this.provider.filter(callback, argument)
+
 			const results = {}
 
 			if (typeof argument !== 'undefined') callback = callback.bind(argument);
@@ -596,6 +548,8 @@ class Air5 {
 
         try {
 
+			if (this.provider.data) return await this.provider.data()
+
 			return await this.provider.toJSON()
 
 		} catch (err) {
@@ -621,6 +575,8 @@ class Air5 {
 	async toJSON() {
 
         try {
+
+			if (this.provider.toJSON) return await this.provider.toJSON()
 
 			return await this.provider.toJSON()
 
@@ -648,6 +604,8 @@ class Air5 {
 
         try {
 
+			if (this.provider.toArray) return await this.provider.toArray()
+
 			return await this.provider.toArray()
 
 		} catch (err) {
@@ -674,6 +632,8 @@ class Air5 {
 
         try {
 
+			if (this.provider.toMap) return await this.provider.toMap()
+
 			return new Map(await this.toArray())
 
 		} catch (err) {
@@ -699,6 +659,8 @@ class Air5 {
 	async fromMap(map) {
 
         try {
+
+			if (this.provider.fromMap) return await this.provider.fromMap()
 
 			for (const [key, value] of map) {
 

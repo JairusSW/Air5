@@ -1,6 +1,6 @@
 {
 	"name": "air5",
-	"version": "6.6.3",
+	"version": "6.6.4",
 	"description": "Database Manager With Support For Multiple Providers",
 	"main": "./index.js",
 	"keywords": [
@@ -114,5 +114,23 @@
 			"optional": true
 		}
 	},
-	"dependencies": {}
+	"dependencies": {
+		"air5-level": "^6.1.1",
+		"better-sqlite3": "^7.1.2",
+		"buffer": "^6.0.3",
+		"bufferstring": "^1.0.0",
+		"enmap": "^5.8.2",
+		"fastify": "^3.10.1",
+		"lodash": "^4.17.20",
+		"mini-blake3": "^6.5.0",
+		"mini-lz4": "^1.0.0",
+		"mqtt": "^4.2.6",
+		"mqtt-connection": "^4.0.0",
+		"mqtt-packet": "^6.7.0",
+		"msgpack-lite": "^0.1.26",
+		"nanoid": "^3.1.20",
+		"needle": "^2.6.0",
+		"rollup": "^2.36.1",
+		"ws": "^7.4.2"
+	}
 }
